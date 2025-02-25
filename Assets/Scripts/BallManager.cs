@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallSpawner : MonoBehaviour
+public class BallManager : MonoBehaviour
 {
     [SerializeField] private BallDataContainer _ballDataContainer;
     [SerializeField] private BallFactory _ballFactory;
     [SerializeField] private float _velocityBonusMultipler;
     [SerializeField] private float _spawnHeiht;
-    [SerializeField] private float _cooldown;
 
     private List<BallController> _balls;
     private List<BonusUser> _bonusUsers = new List<BonusUser>();
     private float _spawnTime;
     private float _spawnAreaSize;
+    private float _cooldown;
 
     public List<BallController> Balls => _balls;
 
@@ -25,6 +25,8 @@ public class BallSpawner : MonoBehaviour
 
     public void Construct()
     {
+        _cooldown = GameSettings.BallSpawnCooldown;
+        _spawnAreaSize = GameSettings.ScreenWidth;
         _balls = new List<BallController>();
         BonusManager.OnBonusAdded += OnBonusAddedHeandeler;
         BonusManager.OnBonusEnded += OnBonusEndedHeandler;
@@ -35,7 +37,6 @@ public class BallSpawner : MonoBehaviour
     {
         StopAllCoroutines();
         _bonusUsers.ForEach(user => user.DisableBonus());
-        _spawnAreaSize = GameSettings.ScreenWidth;
         if (_balls.Count > 0)
         {
             _balls.ForEach(b => b.ReleseObject());

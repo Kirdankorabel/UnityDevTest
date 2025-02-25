@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using UnityEngine.XR;
 
 public class BonusManager : MonoBehaviour
@@ -9,16 +10,22 @@ public class BonusManager : MonoBehaviour
     [SerializeField] private BonusFactory _bonusFactory;
     [SerializeField] private BonusPanel _panel;
     [SerializeField] private float _spawnHeiht;
-    [SerializeField] private float _gameAreaSize;
-    [SerializeField] private float _cooldown;
 
     private List<BonusModel> _activeBonuses = new List<BonusModel>();
     private List<BonusController> _bonusControllers = new List<BonusController>();
     private float _spawnTime;
     private float _spawnAreaSize;
+    private float _gameAreaSize;
+    private float _cooldown;
 
     public static event System.Action<BonusType> OnBonusAdded;
     public static event System.Action<BonusType> OnBonusEnded;
+
+    public void Construct()
+    {
+        _cooldown = GameSettings.BonusSpawnCooldown;
+        _gameAreaSize = GameSettings.ScreenWidth;
+    }
 
     public void StarBonusSpawning()
     {
@@ -28,7 +35,8 @@ public class BonusManager : MonoBehaviour
         {
             _bonusControllers.ForEach(b => b.ReleseObject());
         }
-
+        _activeBonuses.ForEach(b => _panel.EnableBonus(b.BonusType, false));
+        _activeBonuses.Clear();
         StartCoroutine(SpawnBonusesCorutine());
         StartCoroutine(TimeCorutine());
     }

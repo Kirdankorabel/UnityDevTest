@@ -14,16 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ballDatas:
   - _color: {r: 1, g: 0, b: 0, a: 1}
-    _size: 1
+    _size: 0.7
     _speed: 5
     _maxSpeed: 5
     _gravity: 4
     _wallColisionType: 0
     _bounceMultipler: 1
   - _color: {r: 0, g: 0, b: 1, a: 1}
-    _size: 0.7
+    _size: 0.5
     _speed: 7
     _maxSpeed: 7
     _gravity: 5
     _wallColisionType: 1
+    _bounceMultipler: 1
+  - _color: {r: 0, g: 1, b: 0.021879673, a: 1}
+    _size: 0.5
+    _speed: 10
+    _maxSpeed: 10
+    _gravity: 7
+    _wallColisionType: 0
     _bounceMultipler: 1

@@ -3,32 +3,30 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    [SerializeField] private GameSettingsDataContainer _gameSettingsContainer;
     [SerializeField] private SettingsPanel _selectionPanel;
     [SerializeField] private TopPanel _topPanel;
     [SerializeField] private ResultPanel _resultPanel;
     [SerializeField] private PlayerController _playerMover;
     [SerializeField] private FallZone _fallZone;
-    [SerializeField] private BallSpawner _ballSpawner;
+    [SerializeField] private BallManager _ballManager;
     [SerializeField] private BonusManager _bonusManager;
     [SerializeField] private TimeController _timeController;
-    [SerializeField] private int _healthPointCount = 5;
 
     private GameModel _gameModel;
-    private IPositionGetter _platformController;
 
     private void Awake()
     {
-        GameSettings.PositionGetter = new MouseTouchPositionGetter();
         _fallZone.OnBallFalled += OnBallFalledHeandler;
         _timeController.OnTimeEnded += OnTimeEndHeandler;
         _resultPanel.OnNewGameStarted += StartGame;
-        GameSettings.ScreenWidth = Camera.main.orthographicSize * Camera.main.aspect;
-        GameSettings.BestResult = PlayerPrefs.GetInt(GameSettings.BestResultNamePrefName);
+        LoadSettings();
     }
 
     private void Start()
     {
-        _ballSpawner.Construct();
+        _ballManager.Construct();
+        _bonusManager.Construct();
         _topPanel.UpdateBestResult(GameSettings.BestResult);
         StartGame();
     }
@@ -38,7 +36,7 @@ public class GameController : MonoBehaviour
         SetGameModel(new GameModel());
         _playerMover.StartMoving();
         _topPanel.UpdaGameResult(0);
-        _ballSpawner.StartBallSpawning();
+        _ballManager.StartBallSpawning();
         _timeController.StartTimer();
         _bonusManager.StarBonusSpawning();
     }
@@ -61,7 +59,7 @@ public class GameController : MonoBehaviour
     private void OnTimeEndHeandler()
     {
         var points = 0;
-        _ballSpawner.Balls.ForEach(ball => points += ball.GetPointCount());
+        _ballManager.Balls.ForEach(ball => points += ball.GetPointCount());
         _gameModel.AddPoitns(points);
         _resultPanel.Open(_gameModel.Count);
         if(_gameModel.Count > GameSettings.BestResult)
@@ -70,5 +68,15 @@ public class GameController : MonoBehaviour
             GameSettings.BestResult = _gameModel.Count;
             PlayerPrefs.SetInt(GameSettings.BestResultNamePrefName, _gameModel.Count);
         }
+    }
+
+    private void LoadSettings()
+    {
+        GameSettings.PositionGetter = new MouseTouchPositionGetter();
+        GameSettings.ScreenWidth = Camera.main.orthographicSize * Camera.main.aspect;
+        GameSettings.BestResult = PlayerPrefs.GetInt(GameSettings.BestResultNamePrefName);
+        GameSettings.BallSpawnCooldown = _gameSettingsContainer.BallSpawnCooldown;
+        GameSettings.BonusSpawnCooldown = _gameSettingsContainer.BonusSpawnCooldown;
+        GameSettings.PlayerVelocity = _gameSettingsContainer.PlayerVelocity;
     }
 }

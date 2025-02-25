@@ -9,4 +9,7 @@ public static class GameSettings
     public static bool IsPaused { get; set; }
     public static int BestResult { get; set; }
     public static float ScreenWidth { get; set; }
+    public static float BallSpawnCooldown { get; set; }
+    public static float BonusSpawnCooldown { get; set; }
+    public static float PlayerVelocity { get; set; }
 }

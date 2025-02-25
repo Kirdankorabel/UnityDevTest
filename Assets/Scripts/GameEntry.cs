@@ -36,6 +36,7 @@ public class GameEntry : MonoBehaviour
     {
         using (UnityWebRequest request = UnityWebRequest.Get(_url))
         {
+            request.SetRequestHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)");
             yield return request.SendWebRequest();
 
             if (request.result == UnityWebRequest.Result.ConnectionError ||

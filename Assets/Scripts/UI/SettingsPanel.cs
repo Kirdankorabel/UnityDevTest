@@ -1,4 +1,4 @@
-using System.Collections;
+using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +10,7 @@ public class SettingsPanel : MonoBehaviour
     [SerializeField] private ArrowsPanel _arrowsPanel;
     [SerializeField] private Slider _sensivitySlider;
     [SerializeField] private Button _closeButton;
+    [SerializeField] private float _duration = 0.5f;
     [Header("Toggles: mouse, arrows, accelerometer")]
     [SerializeField] private List<Toggle> _toggles;
 
@@ -38,14 +39,20 @@ public class SettingsPanel : MonoBehaviour
 
     private void Open()
     {
+        transform.localScale = Vector3.zero;
+        transform.DOScale(1f, _duration);
         GameSettings.IsPaused = true;
         gameObject.SetActive(true);
     }
 
     private void Close()
     {
-        GameSettings.IsPaused = false;
-        gameObject.SetActive(false);
+        transform.localScale = Vector3.one;
+        transform.DOScale(0f, _duration).OnComplete(() =>
+        {
+            GameSettings.IsPaused = false;
+            gameObject.SetActive(false);
+        });
     }
 
     private void OnToggleChanged(int index, bool isSelected)
