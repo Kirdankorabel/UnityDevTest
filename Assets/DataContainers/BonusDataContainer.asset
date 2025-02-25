@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de803f8907741744b974736df097d021, type: 3}
+  m_Name: BonusDataContainer
+  m_EditorClassIdentifier: 
+  _datas:
+  - _color: {r: 1, g: 1, b: 1, a: 1}
+    _size: 1
+    _speed: 3
+    _maxSpeed: 3
+    _gravity: 1
+    _bonusType: 0
+    _duration: 5
+    _sprite: {fileID: 21300000, guid: b6fcb67aab932ab47845505c9a99494c, type: 3}
+  - _color: {r: 1, g: 1, b: 1, a: 1}
+    _size: 1
+    _speed: 3
+    _maxSpeed: 3
+    _gravity: 1
+    _bonusType: 1
+    _duration: 3
+    _sprite: {fileID: 21300000, guid: 8a17f6ee71d7cd84893f3bf08e22e95a, type: 3}
+  - _color: {r: 1, g: 1, b: 1, a: 1}
+    _size: 1
+    _speed: 3
+    _maxSpeed: 3
+    _gravity: 1
+    _bonusType: 2
+    _duration: 3
+    _sprite: {fileID: 21300000, guid: 184a260157178b2468cd651a8efbc251, type: 3}
