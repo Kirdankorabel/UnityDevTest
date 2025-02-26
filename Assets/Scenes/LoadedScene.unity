@@ -640,7 +640,7 @@ MonoBehaviour:
   _resultText: {fileID: 1898223364}
   _gameSceneName: GameScene
   _responseCodeMassage: 'ResponseCode: '
-  _alwaysOpen: 0
+  _alwaysOpen: 1
 --- !u!4 &1656484882
 Transform:
   m_ObjectHideFlags: 0

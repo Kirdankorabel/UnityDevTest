@@ -55,15 +55,7 @@ public class GameEntry : MonoBehaviour
 
     private void ProcessResponse(string jsonResponse)
     {
-        try
-        {
-            ResponseData responseData = JsonUtility.FromJson<ResponseData>(jsonResponse);
-            _resultText.text = responseData.result;
-        }
-        catch
-        {
-            Invoke("StartGame", 2f);
-        }
+        _resultText.text = jsonResponse;
     }
 
     private void StartGame()
